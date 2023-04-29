@@ -9,8 +9,9 @@ export class ContactRepositoryPrisma implements IContactRepository {
 	async findById(id: number): Promise<FindContactByIdResponseDto> {
 		const contact = await prisma.contact.findFirst({
 			include: {
-				contact_phone: true,
-				contactEmail: true
+				contactPhone: true,
+				contactEmail: true,
+				contactAdress: true
 			},
 			where: {
 				id: Number(id)

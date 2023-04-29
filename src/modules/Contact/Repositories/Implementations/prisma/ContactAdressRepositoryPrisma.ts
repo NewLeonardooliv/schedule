@@ -1,5 +1,5 @@
 import { prisma } from '@infra/prisma/client';
-import { removerCaracteresEspeciais } from 'src/Utils/Characters.util';
+import { removerCaracteresEspeciais } from 'src/utils/Characters.util';
 import { IContactAdressRepository } from '../../IContactAdressRepository';
 import { ContactAdress } from '@modules/Contact/Domain/ContactAdress';
 

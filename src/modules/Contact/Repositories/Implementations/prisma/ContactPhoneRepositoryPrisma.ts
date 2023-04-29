@@ -1,7 +1,7 @@
 import { prisma } from '@infra/prisma/client';
 import { IContactPhoneRepository } from '../../IContactPhoneRepository';
 import { ContactPhone } from '@modules/Contact/Domain/ContactPhone';
-import { removerCaracteresEspeciais } from 'src/Utils/Characters.util';
+import { removerCaracteresEspeciais } from 'src/utils/Characters.util';
 
 export class ContactPhoneRepositoryPrisma implements IContactPhoneRepository {
 	async create(id_contact: number, createContactParams: ContactPhone): Promise<void> {

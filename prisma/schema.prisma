@@ -25,9 +25,9 @@ model Contact {
   created_at  DateTime @default(now())
   is_active   Boolean
 
-  contact_phone ContactPhone[]
+  contactPhone  ContactPhone[]
   contactEmail  ContactEmail[]
-  ContactAdress ContactAdress[]
+  contactAdress ContactAdress[]
 
   @@map("contacts")
 }
@@ -48,7 +48,7 @@ model PhoneType {
   id        Int    @id @default(autoincrement())
   type_name String
 
-  contact_phone ContactPhone[]
+  contactPhone ContactPhone[]
 
   @@map("contact_types")
 }
@@ -96,7 +96,7 @@ model AdressType {
   id        Int    @id @default(autoincrement())
   type_name String
 
-  ContactAdress ContactAdress[]
+  contactAdress ContactAdress[]
 
   @@map("adresses_types")
 }
@@ -104,7 +104,7 @@ model AdressType {
 model Country {
   id            Int             @id @default(autoincrement())
   country_name  String
-  ContactAdress ContactAdress[]
+  contactAdress ContactAdress[]
 
   @@map("countries")
 }

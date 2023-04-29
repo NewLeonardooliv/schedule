@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  password   String
+  created_at DateTime @default(now())
+  is_active  Boolean
+
+  @@map("users")
+}
+
+model Contact {
+  id          Int      @id @default(autoincrement())
+  name        String
+  surname     String
+  profile_pic String?
+  created_at  DateTime @default(now())
+  is_active   Boolean
+
+  contact_phone ContactPhone[]
+  contactEmail  ContactEmail[]
+  ContactAdress ContactAdress[]
+
+  @@map("contacts")
+}
+
+model ContactPhone {
+  id         Int    @id @default(autoincrement())
+  id_contact Int
+  phone      String
+  phone_type Int
+
+  idContact   Contact   @relation(fields: [id_contact], references: [id])
+  idPhoneType PhoneType @relation(fields: [phone_type], references: [id])
+
+  @@map("contact_phones")
+}
+
+model PhoneType {
+  id        Int    @id @default(autoincrement())
+  type_name String
+
+  contact_phone ContactPhone[]
+
+  @@map("contact_types")
+}
+
+model ContactEmail {
+  id         Int    @id @default(autoincrement())
+  id_contact Int
+  email      String
+  email_type Int
+
+  idContact   Contact   @relation(fields: [id_contact], references: [id])
+  emailTypeId EmailType @relation(fields: [email_type], references: [id])
+
+  @@map("contact_emails")
+}
+
+model EmailType {
+  id        Int    @id @default(autoincrement())
+  type_name String
+
+  contactEmail ContactEmail[]
+
+  @@map("email_types")
+}
+
+model ContactAdress {
+  id          Int    @id @default(autoincrement())
+  id_contact  Int
+  street      String
+  district    String
+  city        String
+  state       String
+  zip_code    String
+  adress_type Int
+  coutry      Int
+
+  idContact    Contact    @relation(fields: [id_contact], references: [id])
+  adressTypeId AdressType @relation(fields: [adress_type], references: [id])
+  countryId    Country    @relation(fields: [coutry], references: [id])
+
+  @@map("contact_adresses")
+}
+
+model AdressType {
+  id        Int    @id @default(autoincrement())
+  type_name String
+
+  ContactAdress ContactAdress[]
+
+  @@map("adresses_types")
+}
+
+model Country {
+  id            Int             @id @default(autoincrement())
+  country_name  String
+  ContactAdress ContactAdress[]
+
+  @@map("countries")
+}

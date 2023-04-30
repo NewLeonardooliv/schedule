@@ -7,6 +7,7 @@ import { created, fail } from '@core/infra/HttpResponse';
 
 class CreateUserController implements Controller {
 	constructor(private createUserUseCase: CreateUserUseCase) { }
+
 	async handle({ email, password }: CreateUserRequestDTO) {
 		try {
 			await this.createUserUseCase.execute({

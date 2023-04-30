@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { contact } from './contact.router';
 import { user } from './user.router';
+import { sessions } from './sessions.routes';
 
 const router = Router();
 
@@ -12,6 +13,7 @@ router.get('/', (req, res) => {
 
 router.use(contact);
 router.use(user);
+router.use(sessions);
 
 
 export { router };

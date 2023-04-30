@@ -11,9 +11,9 @@ router.get('/', (req, res) => {
 	});
 });
 
+router.use(sessions);
 router.use(contact);
 router.use(user);
-router.use(sessions);
 
 
 export { router };

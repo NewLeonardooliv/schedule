@@ -6,6 +6,7 @@ export const adapterMiddleware = (middleware: Middleware) => {
 	return async (request: Request, response: Response, next: NextFunction) => {
 		const requestData = {
 			accessToken: request.headers?.['x-access-token'],
+			bearer: request.headers?.['authorization'],
 			...(request.headers || {}),
 			...(request.query || {}),
 		};

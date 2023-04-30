@@ -6,7 +6,7 @@ import { Middleware } from '@core/infra/Middleware';
 import { AccessDeniedError } from '../factories/errors/AccessDeniedError';
 
 type EnsureAuthenticatedMiddlewareRequest = {
-	accessToken: string
+	bearer: string
 }
 
 type DecodedJwt = {
@@ -19,11 +19,12 @@ export class EnsureAuthenticatedMiddleware implements Middleware {
 		request: EnsureAuthenticatedMiddlewareRequest
 	): Promise<HttpResponse> {
 		try {
-			const { accessToken } = request;
+			const { bearer } = request;
 
-			if (accessToken) {
+			if (bearer) {
 				try {
-					const decoded = decode(accessToken) as DecodedJwt;
+					const token: string = bearer.replace('Bearer ','');
+					const decoded = decode(token) as DecodedJwt;
 
 					return ok({ userId: decoded.sub });
 				} catch (err) {

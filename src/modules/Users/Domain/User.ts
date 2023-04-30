@@ -1,9 +1,10 @@
 import { Entity } from '@core/domains/Entity';
+import { Password } from './Password';
 
 export type UserProps = {
   id?: number;
   email: string;
-  password: string;
+  password: Password;
 }
 
 

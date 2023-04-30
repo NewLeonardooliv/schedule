@@ -1,5 +1,7 @@
+import { User } from '@modules/Users/Domain/User';
+
 export type FindByEmailReponseDTO = {
   id?: number;
-  email: string;
+  email: User;
   password: string;
 }

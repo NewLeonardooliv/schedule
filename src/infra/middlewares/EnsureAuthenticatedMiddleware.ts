@@ -23,7 +23,7 @@ export class EnsureAuthenticatedMiddleware implements Middleware {
 
 			if (bearer) {
 				try {
-					const token: string = bearer.replace('Bearer ','');
+					const token: string = bearer.replace('Bearer ', '');
 					const decoded = decode(token) as DecodedJwt;
 
 					return ok({ userId: decoded.sub });

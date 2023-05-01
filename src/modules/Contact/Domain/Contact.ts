@@ -1,7 +1,6 @@
 import { Entity } from '@core/domains/Entity';
 
 export type ContactProps = {
-	id: number;
 	name: string;
 	surname: string;
 	profile_pic?: string;
@@ -12,12 +11,12 @@ export type ContactProps = {
 export class Contact extends Entity<ContactProps> {
 	public readonly created_at: Date;
 
-	private constructor(props: ContactProps) {
-		super({ ...props });
+	private constructor(props: ContactProps, id?: number) {
+		super(props, id);
 	}
 
-	static create(props: ContactProps) {
-		const contact = new Contact(props);
+	static create(props: ContactProps, id?: number) {
+		const contact = new Contact(props, id);
 
 		return contact;
 	}

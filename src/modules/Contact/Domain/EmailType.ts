@@ -1,23 +1,12 @@
+import { Entity } from '@core/domains/Entity';
+
 export type EmailTypeProps = {
 	type_name: string;
 }
 
-export class EmailType {
-	public readonly id: number;
-	public props: Required<EmailTypeProps>;
-
+export class EmailType extends Entity<EmailTypeProps> {
 	private constructor(props: EmailTypeProps, id?: number) {
-		this.id = id || Math.random();
-
-		if (!props) {
-			//@ts-expect-error used for ORM
-			this.props = {};
-			return;
-		}
-
-		this.props = {
-			...props,
-		};
+		super(props, id);
 	}
 
 	get type_name(): string {

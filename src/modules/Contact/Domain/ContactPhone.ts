@@ -8,12 +8,12 @@ export type ContactPhoneProps = {
 };
 
 export class ContactPhone extends Entity<ContactPhoneProps> {
-	private constructor(props: ContactPhoneProps) {
-		super(props);
+	private constructor(props: ContactPhoneProps, id?: number) {
+		super(props, id);
 	}
 
-	static create(props: ContactPhoneProps) {
-		return new ContactPhone(props);
+	static create(props: ContactPhoneProps, id?: number) {
+		return new ContactPhone(props, id);
 	}
 
 	update(phone: string, phone_type: number): void {

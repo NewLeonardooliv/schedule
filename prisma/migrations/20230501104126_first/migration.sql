@@ -88,6 +88,32 @@ CREATE TABLE "countries" (
     CONSTRAINT "countries_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "todo" (
+    "id" SERIAL NOT NULL,
+    "ds_list" TEXT NOT NULL,
+    "priority" INTEGER NOT NULL,
+
+    CONSTRAINT "todo_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "user_todo" (
+    "id" SERIAL NOT NULL,
+    "id_todo" INTEGER NOT NULL,
+    "id_user" INTEGER NOT NULL,
+
+    CONSTRAINT "user_todo_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "priority_type" (
+    "id" SERIAL NOT NULL,
+    "country_name" TEXT NOT NULL,
+
+    CONSTRAINT "priority_type_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
@@ -111,3 +137,12 @@ ALTER TABLE "contact_adresses" ADD CONSTRAINT "contact_adresses_adress_type_fkey
 
 -- AddForeignKey
 ALTER TABLE "contact_adresses" ADD CONSTRAINT "contact_adresses_coutry_fkey" FOREIGN KEY ("coutry") REFERENCES "countries"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "todo" ADD CONSTRAINT "todo_priority_fkey" FOREIGN KEY ("priority") REFERENCES "priority_type"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "user_todo" ADD CONSTRAINT "user_todo_id_user_fkey" FOREIGN KEY ("id_user") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "user_todo" ADD CONSTRAINT "user_todo_id_todo_fkey" FOREIGN KEY ("id_todo") REFERENCES "todo"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

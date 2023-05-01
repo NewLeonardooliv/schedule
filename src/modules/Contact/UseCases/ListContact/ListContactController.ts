@@ -7,7 +7,19 @@ export class ListContactController implements Controller {
 
 	async handle() {
 		try {
-			const contacts = await this.createContactUseCase.execute();
+			const result = await this.createContactUseCase.execute();
+
+			const contacts = result.map(contact => {
+				return {
+					id: contact.id,
+					name: contact.props.name,
+					surname: contact.props.surname,
+					created_at: contact.props.created_at,
+					is_active: contact.props.is_active,
+					profile_pic: contact.props.profile_pic
+				};
+			});
+
 			return ok(contacts);
 		} catch (error) {
 			return fail(error);

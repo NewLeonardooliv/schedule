@@ -1,23 +1,13 @@
+import { Entity } from '@core/domains/Entity';
+
 export type PhoneTypeProps = {
-  typeName: string;
+	typeName: string;
 };
 
-export class PhoneType {
-	public readonly id: number;
-	public props: Required<PhoneTypeProps>;
+export class PhoneType extends Entity<PhoneTypeProps> {
 
 	private constructor(props: PhoneTypeProps, id?: number) {
-		this.id = id || Math.random();
-
-		if (!props) {
-			//@ts-expect-error used for ORM
-			this.props = {};
-			return;
-		}
-
-		this.props = {
-			...props,
-		};
+		super(props, id);
 	}
 
 	static create(props: PhoneTypeProps, id?: number) {

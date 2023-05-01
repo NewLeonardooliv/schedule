@@ -1,15 +1,15 @@
 import { IContactRepository } from '@modules/Contact/Repositories/IContactRepository';
-import { CreateContactPhoneUseCase } from '../CreatePhoneContact/CreateContactPhoneUseCase';
-import { CreateContactEmailUseCase } from '../CreateEmailContact/CreateContactEmailUseCase';
 import { CreateContactRequestDto } from '@modules/Contact/Dto/CreateContactDto/CreateContactRequestDto';
-import { CreateContactAdressUseCase } from '../CreateAdressContact/CreateAdressContactUseCase';
+import { IContactPhoneRepository } from '@modules/Contact/Repositories/IContactPhoneRepository';
+import { IContactEmailRepository } from '@modules/Contact/Repositories/IContactEmailRepository';
+import { IContactAdressRepository } from '@modules/Contact/Repositories/IContactAdressRepository';
 
 export class CreateContactUseCase {
 	constructor(
 		private contactRepository: IContactRepository,
-		private createContactPhoneUseCase: CreateContactPhoneUseCase,
-		private createContactEmailUseCase: CreateContactEmailUseCase,
-		private createContactAdressUseCase: CreateContactAdressUseCase
+		private contactPhoneRepository: IContactPhoneRepository,
+		private contactEmailRepository: IContactEmailRepository,
+		private contactAdresRepository: IContactAdressRepository,
 	) { }
 
 	async execute({ name, surname, profile_pic, phone, email, adress }: CreateContactRequestDto) {
@@ -20,15 +20,15 @@ export class CreateContactUseCase {
 		});
 
 		phone?.map(async element => {
-			await this.createContactPhoneUseCase.execute(contact.id, element);
+			await this.contactPhoneRepository.create(contact.id, element);
 		});
 
 		email.forEach(async element => {
-			await this.createContactEmailUseCase.execute(contact.id, element);
+			await this.contactEmailRepository.create(contact.id, element);
 		});
 
 		adress.forEach(async element => {
-			await this.createContactAdressUseCase.execute(contact.id, element);
+			await this.contactAdresRepository.create(contact.id, element);
 		});
 	}
 }

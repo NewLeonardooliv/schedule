@@ -1,7 +1,7 @@
 import { Entity } from '@core/domains/Entity';
 
 export type PhoneTypeProps = {
-	typeName: string;
+	type_name: string;
 };
 
 export class PhoneType extends Entity<PhoneTypeProps> {

@@ -49,7 +49,14 @@ async function seed() {
 			]
 		});
 
-		console.log('Dados de seed inseridos com sucesso.');
+		await prisma.priorityType.createMany({
+			data: [
+				{ type_name: 'High' },
+				{ type_name: 'Medium' },
+				{ type_name: 'Low' },
+			]
+		});
+
 	} catch (error) {
 		console.error('Erro ao inserir dados de seed:', error);
 	} finally {

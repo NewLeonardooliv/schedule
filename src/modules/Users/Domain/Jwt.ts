@@ -2,15 +2,16 @@ import { sign, verify } from 'jsonwebtoken';
 
 import { AppError } from 'src/shared/errors/AppError';
 import { auth } from '@config/auth';
+import { User } from './User';
 
 interface JWTData {
-  userId: string
-  token: string
+	userId: string
+	token: string
 }
 
 export interface JWTTokenPayload {
-  exp: number
-  sub: string
+	exp: number
+	sub: string
 }
 
 export class JWT {
@@ -45,13 +46,13 @@ export class JWT {
 		return jwt;
 	}
 
-	static async signUser(user): Promise<JWT> {
+	static async signUser(user: User): Promise<JWT> {
 		const token = sign({}, auth.secretKey, {
 			subject: user.id.toString(),
 			expiresIn: auth.expiresIn,
 		});
 
-		const jwt = new JWT({ userId: user.id, token });
+		const jwt = new JWT({ userId: user.id.toString(), token });
 
 		return jwt;
 	}

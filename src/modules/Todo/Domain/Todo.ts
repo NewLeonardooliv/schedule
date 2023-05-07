@@ -10,7 +10,7 @@ export class Todo extends Entity<TodoProps> {
 		super(props, id);
 	}
 
-	create(props: TodoProps, id?: number) {
+	static create(props: TodoProps, id?: number) {
 		return new Todo(props, id);
 	}
 }

@@ -133,9 +133,9 @@ model UserTodo {
 }
 
 model PriorityType {
-  id           Int    @id @default(autoincrement())
-  country_name String
-  Todo         Todo[]
+  id        Int    @id @default(autoincrement())
+  type_name String
+  Todo      Todo[]
 
   @@map("priority_type")
 }

@@ -13,12 +13,6 @@ export const adapterMiddleware = (middleware: Middleware) => {
 
 		const httpResponse = await middleware.handle(requestData, request.body);
 
-		if (httpResponse.body.userId) {
-			request.user = {
-				id: httpResponse.body.userId
-			};
-		}
-
 		if (httpResponse === false) {
 			return response.status(200).send();
 		}

@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import { JWT } from '@modules/Users/Domain/Jwt';
 import { AuthenticateUserRequestDto } from '@modules/Users/Dto/AuthenticateUser/AuthenticateUserRequestDto';
 import { IUsersRepository } from '@modules/Users/Repositories/IUsersRepository';
@@ -14,11 +13,12 @@ export class AuthenticateUserUseCase {
 			throw new AppError('Invalid e-mail/password combination.');
 		}
 
-		const passwordMatch = await bcrypt.compare(password, user.password);
+		const passwordMatch = await user.password.comparePassword(password);
 		if (!passwordMatch) {
 			throw new AppError('Invalid e-mail/password combination.');
 		}
+		const { token } = await JWT.signUser(user);
 
-		return await JWT.signUser(user);
+		return token;
 	}
 }

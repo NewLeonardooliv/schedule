@@ -7,7 +7,7 @@ export class UserTodoRepositoryPrisma implements IUserTodoRepository {
 		await prisma.userTodo.create({
 			data: {
 				id_todo: params.id_todo,
-				id_user: params.id_user,
+				id_user: Number(params.id_user)
 			}
 		});
 	}

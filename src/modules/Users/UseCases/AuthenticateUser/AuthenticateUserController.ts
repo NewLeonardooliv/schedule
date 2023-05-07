@@ -8,7 +8,7 @@ export class AuthenticateUserController implements Controller {
 
 	async handle({ email, password }: AuthenticateUserRequestDto) {
 		try {
-			const { token } = await this.authenticateUserUseCase.execute({ email, password });
+			const token = await this.authenticateUserUseCase.execute({ email, password });
 			return ok(token);
 		} catch (error) {
 			return fail(error);

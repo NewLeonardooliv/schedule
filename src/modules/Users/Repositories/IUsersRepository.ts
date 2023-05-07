@@ -1,7 +1,7 @@
+import { User } from '../Domain/User';
 import { CreateUserRequestDTO } from '../Dto/CreateUser/CreateUserRequestDTO';
-import { FindByEmailReponseDTO } from '../Dto/FindByEmail/FindByEmailReponseDTO';
 
 export interface IUsersRepository {
-  create(params: CreateUserRequestDTO)
-  findByEmail(email: string): Promise<FindByEmailReponseDTO>;
+  create(params: CreateUserRequestDTO): Promise<void>
+  findByEmail(email: string): Promise<User>;
 }

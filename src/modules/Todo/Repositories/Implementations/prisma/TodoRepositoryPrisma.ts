@@ -3,16 +3,19 @@ import { UpdateTodoRequestDto } from '@modules/Todo/Dto/UpdateTodoDto/UpdateTodo
 import { GetTodoByIdReponseDto } from '@modules/Todo/Dto/getTodoById/GetTodoByIdReponseDto';
 import { ITodoRepository } from '../../ITodoRepository';
 import { prisma } from '@infra/prisma/client';
-import { CreateTodoResponseDto } from '@modules/Todo/Dto/CreateTodoDto/CreateTodoResponseDto';
+import { Todo } from '@modules/Todo/Domain/Todo';
+import { TodoMapper } from '@modules/Todo/Mapper/TodoMapper';
 
 export class TodoRepositoryPrisma implements ITodoRepository {
-	async createTodo(params: CreateTodoRequestDto): Promise<CreateTodoResponseDto> {
-		return await prisma.todo.create({
+	async createTodo(params: CreateTodoRequestDto): Promise<Todo> {
+		const task = await prisma.todo.create({
 			data: {
 				ds_list: params.ds_list,
 				priority: params.priority,
 			}
 		});
+
+		return TodoMapper.toDomain(task);
 	}
 
 	async updateTodo(params: UpdateTodoRequestDto): Promise<void> {
@@ -33,5 +36,19 @@ export class TodoRepositoryPrisma implements ITodoRepository {
 				id: id
 			}
 		});
+	}
+
+	async ListAllTodo(id_user: number): Promise<Todo[]> {
+		const todoList = await prisma.todo.findMany({
+			where: {
+				UserTodo: {
+					some: {
+						id_user: Number(id_user)
+					}
+				}
+			},
+		});
+
+		return todoList.map(todo => TodoMapper.toDomain(todo));
 	}
 }

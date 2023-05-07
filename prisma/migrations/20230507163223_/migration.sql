@@ -109,7 +109,7 @@ CREATE TABLE "user_todo" (
 -- CreateTable
 CREATE TABLE "priority_type" (
     "id" SERIAL NOT NULL,
-    "country_name" TEXT NOT NULL,
+    "type_name" TEXT NOT NULL,
 
     CONSTRAINT "priority_type_pkey" PRIMARY KEY ("id")
 );

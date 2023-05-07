@@ -2,28 +2,27 @@ import { Entity } from '@core/domains/Entity';
 import { Password } from './Password';
 
 export type UserProps = {
-  id?: number;
-  email: string;
-  password: Password;
+	email: string;
+	password: Password;
 }
 
 
 export class User extends Entity<UserProps> {
-	private constructor(props: UserProps) {
-		super(props);
+	private constructor(props: UserProps, id?: number) {
+		super(props, id);
 	}
 
-	create(props: UserProps) {
-		const user = new User({ ...props });
+	static create(props: UserProps, id?: number) {
+		const user = new User(props, id);
 
 		return user;
 	}
 
 	get email() {
-		return this.email;
+		return this.props.email;
 	}
-  
+
 	get password() {
-		return this.password;
+		return this.props.password;
 	}
 }

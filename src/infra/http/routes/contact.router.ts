@@ -11,7 +11,6 @@ import { Router } from 'express';
 
 const contact = Router();
 
-contact.use(adapterMiddleware(makeEnsureAuthenticatedMiddleware()));
 
 contact.post('/contact', adapterRoute(createContactController));
 contact.get('/contact', adapterRoute(listContactController));
